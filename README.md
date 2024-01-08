@@ -21,8 +21,9 @@ This is an Account Management System that allows users to interact with accounts
    git clone https://github.com/Amirnrz/ATM-CLI.git
 
 2. install depencies:
+   ```bash
    npm install
-```
+
 
 Project Structure
 
