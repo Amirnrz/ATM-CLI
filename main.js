@@ -12,15 +12,22 @@ const Account = require('./classes/Account')
 const CommandLine = require('./classes/CommandLine')
 
 async function main() {
-  const firstQuestion = 'wich account would you like to enter?'
-  const accountName = await CommandLine.ask(firstQuestion)
-  const account = await Account.find(accountName)
 
-  if(account == null) {
-    await promptCreateAccount(accountName)
-  } else if(account) {
-    await propmtTask(account)
+  try {
+    const firstQuestion = 'wich account would you like to enter?'
+    const accountName = await CommandLine.ask(firstQuestion)
+    const account = await Account.find(accountName)
+  
+    if(account == null) {
+      await promptCreateAccount(accountName)
+    } else if(account) {
+      await propmtTask(account)
+    }
+
+  } catch (error) {
+    CommandLine.print("ERROR: please try again!")
   }
+
 
 }
 
@@ -43,10 +50,18 @@ async function propmtTask(account) {
 
   } else if(response === 'withdraw') {
     const amount =  parseFloat(await CommandLine.ask("how much?"))
-    await account.withdraw(amount)
-    CommandLine.print(`you have taken ${amount} from the ${account.name} account and now your balance is ${account.balance}`)
+
+    try {
+      await account.withdraw(amount);
+      CommandLine.print(`you have taken ${amount} from the ${account.name} account and now your balance is ${account.balance}`);
+
+    } catch (error) {
+      CommandLine.print("we were unabel to make the withdraw. please ensure you have enough money")
+    }
+  } else {
+    CommandLine.print(`your balance is ${account.balance}`)
   }
-}
+} 
 
 
 
