@@ -23,7 +23,8 @@ This is an Account Management System that allows users to interact with accounts
 2. install depencies:
    npm install
 ```
-## Project Structure
+
+Project Structure
 
 The project follows the following structure:
 
