@@ -39,8 +39,12 @@ async function propmtTask(account) {
   if(response === 'deposit') {
     const amount =  parseFloat(await CommandLine.ask("how much?"))
     await account.deposit(amount)
-  } else if(response === 'withdraw') {
+    CommandLine.print(`you have added ${amount} to ${account.name} account and now your balance is ${account.balance}`)
 
+  } else if(response === 'withdraw') {
+    const amount =  parseFloat(await CommandLine.ask("how much?"))
+    await account.withdraw(amount)
+    CommandLine.print(`you have taken ${amount} from the ${account.name} account and now your balance is ${account.balance}`)
   }
 }
 
