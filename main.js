@@ -16,11 +16,15 @@ async function main() {
   const accountName = await CommandLine.ask(firstQuestion)
 
   const account = await Account.find(accountName)
+  if(account == null) await promptCreateAccount(accountName)
+}
 
-  if(account) {
-    console.log('found an account');
-  } else if(!account) {
-    console.log('cannot find');
+
+async function promptCreateAccount(accountName) {
+  const response = await CommandLine.ask("account you looking for does not exist would you like to create one? (yes/no)")
+
+  if(response === 'yes') {
+    return await Account.create(accountName)
   }
 }
 

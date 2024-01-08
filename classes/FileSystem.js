@@ -10,7 +10,14 @@ module.exports = class FileSystem {
     })
   }
 
-  static write() {
-
+  static write(path, content) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(path, content.toString(), err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
   }
 }
